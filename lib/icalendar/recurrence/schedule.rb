@@ -39,6 +39,16 @@ module Icalendar
           convert_ice_cube_occurrence(occurrence)
         end
       end
+      
+      def next_occurrences(count, closing_time=nil)
+        closing_time = TimeUtil.to_time(closing_time) if closing_time
+        args = [count, closing_time].compact
+        ice_cube_occurrences = ice_cube_schedule.next_occurrences(*args)
+        
+        ice_cube_occurrences.map do |occurrence|
+          convert_ice_cube_occurrence(occurrence)
+        end
+      end
 
       def all_occurrences
         ice_cube_occurrences = ice_cube_schedule.all_occurrences
